@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="card card-body">
+            <form action="/add_product" method="POST">
+ 
+             <input type="text"  name="CodigoProducto" placeholder="CodigoProducto">
+ 
+             <input type="text"  name="Precio" placeholder="Precio">
+ 
+             <input type="text"   name="SaldoInventario" placeholder="SaldoInventario">
+ 
+             <input type="text"   name="FechaIngreso" placeholder="FechaIngreso">
+ 
+             <input type="text" name="UsuarioIngreso" placeholder="UsuarioIngreso">
+ 
+             <input type="text"   name="IDFamilia" placeholder="IDFamilia">
+ 
+             <input type="text" name="Descripcion" placeholder="Descripcion">
+ 
+             <button>
+                Guardar
+             </button>
+           </form>
+       </div>
+    </div>
+
+    <div class="col-md-7">
+        <table class="table table-striped table-hover table-bordered table-sm bg-white">
+            <thead>
+                <tr>
+ 
+                    <td>Codigo</td>
+                    <td>Precio</td>
+                    <td>Saldo en Inventario</td>
+                    <td>Fecha de Ingreso</td>
+                    <td>Usuario de Ingreso</td>
+                    <td>Familia</td>
+                    <td>Descripción</td>
+                    <td colspan="2">Acciones</td>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+ 
+                    <td>{{product.1}}</td>
+                    <td>{{product.2}}</td>
+                    <td>{{product.3}}</td>
+                    <td>{{product.4}}</td>
+                    <td>{{product.5}}</td>
+                    <td>{{product.6}}</td>
+                    <td>{{product.7}}</td>
+                    <td>
+                        <a href="/edit/{{product.0}}" class="btn btn-secondary">Editar</a>
+                    </td>
+                    <td>
+                        <a href="/delete/{{product.0}}" class="btn btn-danger btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

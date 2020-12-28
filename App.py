@@ -46,8 +46,15 @@ def Index():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM in04')
     data = cur.fetchall()
+    cur.execute('SELECT * FROM in05')
+    data2 = cur.fetchall()
     cur.close()
-    return render_template('index.html', products=data)
+    return render_template('home.html', products=data, familys=data2)
+
+
+
+
+
 
 
 @app.route('/home')
@@ -55,10 +62,8 @@ def home():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM in04')
     data = cur.fetchall()
-    cur.execute('SELECT * FROM in05')
-    data2 = cur.fetchall()
     cur.close()
-    return render_template('home.html', products=data, familys=data2)
+    return render_template('index.html', products=data)
 
 
 @app.route('/indexB')
@@ -167,7 +172,7 @@ def get_product(id):
 @app.route('/detallefamily/<id>', methods=['POST', 'GET'])
 def get_family(id):
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM in04 WHERE id = %s', (id))
+    cur.execute('SELECT * FROM in05 WHERE id = %s', (id))
     data = cur.fetchall()
     cur.close()
     print(data[0])
